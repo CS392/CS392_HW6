@@ -13,8 +13,9 @@
 
     namespace Supplemental1
     {
+
         public partial class Form1 : Form
-        { 
+        {
         private string hint;
         private string word;
         private ArrayList Answer = new ArrayList();
@@ -77,8 +78,14 @@
                         GAMEOVER.Visible = true;
                     }
                 }
-
+                for (int i = 0; i < Answer.Count; i++) {
+                    if (Answer[i].Equals("_")) {
+                        return; 
+                    }
                 }
+                GenWord.Visible = true;
+                
+            }
             }
 
         private void GenWord_Click(object sender, EventArgs e)
@@ -87,8 +94,10 @@
             GAMEOVER.Visible = false;
             StageCount = 0;
             HangMan.Image = Stage.Images[0];
+            Console.WriteLine(words); 
             index = random.Next(0, words.Length);
-            ArrayList Answer = new ArrayList();
+            Answer.Clear();
+            //ArrayList Answer = new ArrayList();
             word = words[index].ToString();
             hint = hints[index].ToString();
             this.answer.Text = word;
@@ -96,6 +105,7 @@
             {
                 Answer.Add("_");
             }
+            Console.WriteLine(Answer.Count);
             this.UnderLine.Text = string.Join("  ", Answer.ToArray());
             HintText.Text = "hint = " + hint;
         }
